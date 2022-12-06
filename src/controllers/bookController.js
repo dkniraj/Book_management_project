@@ -107,7 +107,7 @@ const getbooks = async (req, res) => {
             }
         }
 
-        const books = await bookModel.find(filter).select({ title: 1, excerpt: 1, userId: 1, category: 1, reviews: 1, releasedAt: 1 }).collation({ locale: "en" }).sort({ title: 1 })
+        const books = await bookModel.find(filter).select({ title: 1, excerpt: 1, userId: 1, category: 1, reviews: 1, releasedAt: 1 }).collection({ locale: "en" }).sort({ title: 1 })
 
         if (Object.keys(books).length == 0)
             return res.status(404).send({ status: false, msg: "No Such book found" })
@@ -138,14 +138,14 @@ const getBookById = async function (req, res) {
         }
     }
     catch (error) {
-        return res.status(500).send({ status: false, message: error.message })
+        return res.status(500).send({ status: false, message: error.msg })
     }
   }
   
 //=====================================================Update-Books==========================================================================//
 const updateBooks = async function(req, res){
     try {
-        let bookId = req.params.bookId;
+        let bookId = req.params
         let { title, excerpt, releasedAt, ISBN } = req.body;
     
         if (!bookId) {
@@ -263,3 +263,8 @@ const DeletedBook = async function (req, res) {
 }
 
 module.exports ={createBooks,getbooks,getBookById,updateBooks,DeletedBook}
+
+
+
+
+
